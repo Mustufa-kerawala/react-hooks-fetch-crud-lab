@@ -5,6 +5,12 @@ import QuestionList from "./QuestionList";
 
 function App() {
   const [page, setPage] = useState("List");
+  const [questions, setQuestions] = useState([]);
+
+  function addQuestion(newQuestion) {
+    const updatedQuestions = [...questions, newQuestion];
+    setQuestions(updatedQuestions);
+  }
 
   return (
     <main>
