@@ -12,6 +12,17 @@ function QuestionList() {
       });
   }, []);
 
+  function handleDelete(id) {
+    fetch(`http://localhost:4000/questions/${id}`, {
+      method: "DELETE",
+    })
+      .then((r) => r.json())
+      .then(() => {
+        const updatedQuestions = questions.filter((q) => q.id !== id);
+        setQuestions(updatedQuestions);
+      });
+  }
+
   
   
   return (
@@ -19,10 +30,14 @@ function QuestionList() {
       <h1>Quiz Questions</h1>
       <ul>{
         questions.map((question) => {
-          return <li key={question.id}>{question.prompt} 
-          
-           </li>
+          return (
+          <li key={question.id}>
+            {question.prompt} 
+            <button onClick={() => handleDelete(question.id)}>Delete Question</button>
 
+          </li>
+)
+          
         })}</ul>
     </section>
   );
