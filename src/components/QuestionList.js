@@ -23,6 +23,24 @@ function QuestionList() {
       });
   }
 
+  function handleUpdate(id, newAnswer) {
+    fetch(`http://localhost:4000/questions/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({correctIndex: newAnswer}),
+    })
+    .then((r) => r.json())
+    .then((updatedQuestion) => {
+      const updatedQuestions = questions.map((q) => {
+        if (q.id === updatedQuestion.id) return updatedQuestion;
+        return q;
+      });
+      setQuestions(updatedQuestions);
+    });
+  }
+
   
   
   return (
@@ -34,6 +52,7 @@ function QuestionList() {
           <li key={question.id}>
             {question.prompt} 
             <button onClick={() => handleDelete(question.id)}>Delete Question</button>
+            <button onClick={() => handleUpdate(question.id )}>Update Answer</button>
 
           </li>
 )
